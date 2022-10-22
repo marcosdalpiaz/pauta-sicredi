@@ -2,8 +2,11 @@ package pauta.teste.sicredi.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pauta.teste.sicredi.controller.dto.SessaoDTO;
 import pauta.teste.sicredi.domain.Pauta;
 import pauta.teste.sicredi.repository.PautaRepository;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -13,5 +16,17 @@ public class PautaService {
 
     public Pauta pautaCadastro(Pauta pauta) {
         return pautaRepository.save(pauta);
+    }
+
+    public Pauta votacao(SessaoDTO sessaoDTO) {
+        Pauta pauta = getPautaById(sessaoDTO.getPautaId());
+        pauta.votacao(sessaoDTO);
+        return pautaRepository.save(pauta);
+    }
+
+    public Pauta getPautaById(Long id) {
+        return pautaRepository.findById(id).orElseThrow(() -> {
+            throw new RuntimeException("Pauta não encontrada!");
+        });
     }
 }

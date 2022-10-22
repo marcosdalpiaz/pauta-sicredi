@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pauta.teste.sicredi.controller.dto.PautaDTO;
+import pauta.teste.sicredi.controller.dto.SessaoDTO;
 import pauta.teste.sicredi.controller.mapper.PautaMapper;
 import pauta.teste.sicredi.domain.Pauta;
 import pauta.teste.sicredi.services.PautaService;
@@ -28,4 +29,9 @@ public class PautaApi {
         return new ResponseEntity<>(toPautaDto(cadastro), HttpStatus.CREATED);
     }
 
+    @PostMapping("votacao")
+    public ResponseEntity<Object> votacao(@RequestBody SessaoDTO sessaoDTO) {
+        Pauta pauta = pautaService.votacao(sessaoDTO);
+        return new ResponseEntity<>(toPautaDto(pauta), HttpStatus.ACCEPTED);
+    }
 }
