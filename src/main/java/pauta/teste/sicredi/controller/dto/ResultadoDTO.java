@@ -10,14 +10,26 @@ import java.io.Serializable;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class PautaDTO implements Serializable {
+@NoArgsConstructor
+public class ResultadoDTO implements Serializable {
 
     @JsonProperty("pauta_id")
-    private Long id;
+    private Long pautaId;
 
     @JsonProperty("pautaNome")
     private String pautaNome;
+
+    @JsonProperty("status")
+    private String pautaStatus;
+
+    @JsonProperty("voto_nao")
+    private Integer votoNao;
+
+    @JsonProperty("voto_sim")
+    private Integer votoSim;
+
+    @JsonProperty("resultado")
+    private String result;
 
 }

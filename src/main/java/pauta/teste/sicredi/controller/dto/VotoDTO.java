@@ -15,7 +15,7 @@ public class VotoDTO {
     @JsonProperty("id_usuario")
     private Long usuarioId;
 
-    @JsonProperty("id_pauta")
+    @JsonProperty("pauta_id")
     private Long pautaId;
 
     @JsonProperty("cpf")
