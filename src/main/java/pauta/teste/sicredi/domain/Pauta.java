@@ -24,7 +24,8 @@ public class Pauta {
     private long id;
 
     //Uma pauta tem vários votos
-    @OneToMany(mappedBy = "pauta")
+    @OneToMany
+    @JoinColumn(name = "pauta_id", referencedColumnName = "pauta_id")
     private Set<Votos> votos;
 
     @JoinColumn(name = "pautaNome")
@@ -49,4 +50,22 @@ public class Pauta {
             return LocalDateTime.now().plusMinutes(sessaoDTO.getMinutagem());
         }
     }
+
+    private boolean tempoExcedido() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        return dateTime.isAfter(pautaTime);
+    }
+
+    public boolean isClosed() {
+        if (pautaFechada() || tempoExcedido()) {
+            this.pautaStatus = "FECHADA";
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean pautaFechada() { return this.pautaStatus.equalsIgnoreCase("FECHADA"); }
+
+
 }
