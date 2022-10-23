@@ -39,7 +39,7 @@ public class ResultadoService {
         return ResultadoDTO.builder()
                 .pautaId(pauta.getId())
                 .pautaNome(pauta.getPautaNome())
-                .pautaStatus(pauta.getPautaStatus())
+                .pautaStatus(pauta.getStatus())
                 .votoNao(votosNao)
                 .votoSim(votosSim)
                 .result(resultadoSessao)
@@ -50,6 +50,10 @@ public class ResultadoService {
 
         List<Votos> votosPorTipo = votos.stream().filter(voto -> tipo.equalsIgnoreCase(voto.getVoto())).collect(Collectors.toList());
         return votosPorTipo.size();
+    }
+
+    public void atualizaResult(ResultadoDTO resultadoDTO) {
+        resultadoDTO.setPautaStatus("Pauta Fechada");
     }
 
 

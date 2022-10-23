@@ -9,6 +9,7 @@ import net.bytebuddy.asm.Advice;
 import pauta.teste.sicredi.controller.dto.SessaoDTO;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -16,30 +17,35 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "pauta")
-public class Pauta {
+@Entity
+public class Pauta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     //Uma pauta tem vários votos
-    @OneToMany
-    @JoinColumn(name = "pauta_id", referencedColumnName = "pauta_id")
+    //@JoinColumn(name = "pauta_id", referencedColumnName = "pauta_id")
+    @OneToMany(mappedBy = "pautaId")
     private Set<Votos> votos;
 
     @JoinColumn(name = "pautaNome")
     private String pautaNome;
 
     @Column(name = "status")
-    private String pautaStatus;
+    private String status;
 
     @Column(name = "pautaTime")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime pautaTime;
 
+    @Column(name = "enviadoParaFila", columnDefinition = "boolean default false")
+    private boolean enviadoParaFila;
+
     public LocalDateTime votacao(SessaoDTO sessaoDTO) {
-        this.pautaStatus = "INICIADA";
+        this.status = "INICIADA";
         return this.pautaTime = getTime(sessaoDTO);
     }
 
@@ -58,14 +64,16 @@ public class Pauta {
 
     public boolean isClosed() {
         if (pautaFechada() || tempoExcedido()) {
-            this.pautaStatus = "FECHADA";
+            this.status = "FECHADA";
             return true;
         } else {
             return false;
         }
     }
 
-    private boolean pautaFechada() { return this.pautaStatus.equalsIgnoreCase("FECHADA"); }
+    private boolean pautaFechada() { return this.status.equalsIgnoreCase("FECHADA"); }
 
-
+    public boolean naoEnviadoParaFila() {
+        return this.enviadoParaFila;
+    }
 }

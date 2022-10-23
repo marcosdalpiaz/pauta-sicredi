@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pauta.teste.sicredi.domain.Pauta;
 import pauta.teste.sicredi.domain.Votos;
 import pauta.teste.sicredi.repository.VotoRepository;
-import pauta.teste.sicredi.util.CpfService;
 
 import java.util.Optional;
 
@@ -13,13 +12,13 @@ import java.util.Optional;
 @AllArgsConstructor
 public class VotoService {
 
-    VotoRepository votoRepository;
-    CpfService cpfService;
-    PautaService pautaService;
+    private VotoRepository votoRepository;
+    private CpfService cpfService;
+    private PautaService pautaService;
 
     public Votos realizarVoto(Votos voto) {
         validarVoto(voto);
-        validarPauta(voto.getPautaId());
+        validarPauta(voto.getPautaId().getId());
         return votoRepository.save(voto);
     }
 
@@ -31,7 +30,7 @@ public class VotoService {
     }
 
     private void validarVoto(Votos voto) {
-        Optional<Votos> validandoVotoByCpf = votoRepository.getVotoByCpf(voto.getPautaId(), voto.getCpf());
+        Optional<Votos> validandoVotoByCpf = votoRepository.getVotoByCpf(voto.getPautaId().getId(), voto.getCpf());
         votoValido(voto.getVoto());
         votoExistente(validandoVotoByCpf);
         cpfService.validarCpf(voto.getCpf());

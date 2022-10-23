@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface PautaRepository extends JpaRepository<Pauta, Long> {
 
-    List<Pauta> findAllByName(String name);
+    //List<Pauta> findAllByName(String name);
+
+    List<Pauta> findAllByStatus(String status);
 }

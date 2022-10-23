@@ -1,16 +1,17 @@
-package pauta.teste.sicredi.util;
+package pauta.teste.sicredi.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pauta.teste.sicredi.config.CpfConfig;
 import pauta.teste.sicredi.controller.dto.CpfDTO;
 
-import static java.lang.String.format;
-
+@Service
 public class CpfService {
 
-    CpfConfig cpfConfig;
-    RestTemplate restTemplate;
+    private CpfConfig cpfConfig;
+    private RestTemplate restTemplate;
 
     public void validarCpf(String cpf) {
         String url = cpfConfig.getUrl();

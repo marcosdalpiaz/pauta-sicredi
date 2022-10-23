@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "votos")
+@Entity
 public class Votos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,9 +21,9 @@ public class Votos implements Serializable {
     @Column(name = "usuario_id")
     private Long usuarioId;
 
-    @Id
-    @Column(name = "pauta_id")
-    private Long pautaId;
+    @ManyToOne
+    @JoinColumn(name = "pauta_id", referencedColumnName = "id")
+    private Pauta pautaId;
 
     @Column(name = "voto")
     private String voto;

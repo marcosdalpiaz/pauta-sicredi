@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pauta.teste.sicredi.domain.Pauta;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class VotoDTO {
     private Long usuarioId;
 
     @JsonProperty("pauta_id")
-    private Long pautaId;
+    private Pauta pautaId;
 
     @JsonProperty("cpf")
     private String cpf;

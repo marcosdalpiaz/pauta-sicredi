@@ -9,6 +9,8 @@ public class PautaMapper {
         return Pauta.builder()
                 .id(pautaDto.getId())
                 .pautaNome(pautaDto.getPautaNome())
+                .pautaTime(pautaDto.getPautaTime())
+                .status(pautaDto.getStatus())
                 .build();
     }
 
@@ -16,6 +18,8 @@ public class PautaMapper {
         return PautaDTO.builder()
                 .id(pauta.getId())
                 .pautaNome(pauta.getPautaNome())
+                .pautaTime(pauta.getPautaTime())
+                .status(pauta.getStatus())
                 .build();
     }
 
