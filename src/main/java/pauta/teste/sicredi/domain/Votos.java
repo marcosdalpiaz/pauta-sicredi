@@ -25,6 +25,9 @@ public class Votos implements Serializable {
     @JoinColumn(name = "pauta_id", referencedColumnName = "id")
     private Pauta pautaId;
 
+    @Column(name = "pautaNome")
+    private String pautaName;
+
     @Column(name = "voto")
     private String voto;
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pauta.teste.sicredi.domain.Pauta;
 import pauta.teste.sicredi.domain.Votos;
+import pauta.teste.sicredi.repository.PautaRepository;
 import pauta.teste.sicredi.repository.VotoRepository;
 
 import java.util.Optional;
@@ -13,12 +14,14 @@ import java.util.Optional;
 public class VotoService {
 
     private VotoRepository votoRepository;
+    private PautaRepository pautaRepository;
     private CpfService cpfService;
     private PautaService pautaService;
 
     public Votos realizarVoto(Votos voto) {
-        validarVoto(voto);
-        validarPauta(voto.getPautaId().getId());
+        Long pautaId = pautaRepository.getPautaIdByPautaName(voto.getPautaName());
+        validarVoto(voto, pautaId);
+        validarPauta(pautaId);
         return votoRepository.save(voto);
     }
 
@@ -29,8 +32,8 @@ public class VotoService {
         }
     }
 
-    private void validarVoto(Votos voto) {
-        Optional<Votos> validandoVotoByCpf = votoRepository.getVotoByCpf(voto.getPautaId().getId(), voto.getCpf());
+    private void validarVoto(Votos voto, Long pautaId) {
+        Optional<Votos> validandoVotoByCpf = votoRepository.getVotoByCpf(pautaId, voto.getCpf());
         votoValido(voto.getVoto());
         votoExistente(validandoVotoByCpf);
         cpfService.validarCpf(voto.getCpf());

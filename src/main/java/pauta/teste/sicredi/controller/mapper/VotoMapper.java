@@ -1,6 +1,7 @@
 package pauta.teste.sicredi.controller.mapper;
 
 import pauta.teste.sicredi.controller.dto.VotoDTO;
+import pauta.teste.sicredi.domain.Pauta;
 import pauta.teste.sicredi.domain.Votos;
 
 public class VotoMapper {
@@ -8,7 +9,7 @@ public class VotoMapper {
     public static Votos toVoto(VotoDTO votoDTO) {
         return Votos.builder()
                 .usuarioId(votoDTO.getUsuarioId())
-                .pautaId(votoDTO.getPautaId())
+                .pautaName(votoDTO.getPautaNome())
                 .cpf(votoDTO.getCpf())
                 .voto(votoDTO.getVoto())
                 .build();
@@ -17,7 +18,7 @@ public class VotoMapper {
     public static VotoDTO toVotoDto(Votos voto) {
         return VotoDTO.builder()
                 .usuarioId(voto.getUsuarioId())
-                .pautaId(voto.getPautaId())
+                .pautaNome(voto.getPautaName())
                 .cpf(voto.getCpf())
                 .voto(voto.getVoto())
                 .build();

@@ -11,5 +11,4 @@ public interface VotoRepository extends JpaRepository<Votos, Long> {
 
     @Query(value = "SELECT * from votos WHERE pauta_id = ?1 and cpf = ?2", nativeQuery = true)
     Optional<Votos> getVotoByCpf(Long pautaId, String cpf);
-
 }

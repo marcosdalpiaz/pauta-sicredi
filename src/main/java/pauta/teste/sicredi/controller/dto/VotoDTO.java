@@ -13,11 +13,11 @@ import pauta.teste.sicredi.domain.Pauta;
 @NoArgsConstructor
 public class VotoDTO {
 
-    @JsonProperty("id_usuario")
+    @JsonProperty("usuarioId")
     private Long usuarioId;
 
-    @JsonProperty("pauta_id")
-    private Pauta pautaId;
+    @JsonProperty("pautaNome")
+    private String pautaNome;
 
     @JsonProperty("cpf")
     private String cpf;

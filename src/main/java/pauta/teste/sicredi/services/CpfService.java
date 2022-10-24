@@ -1,6 +1,7 @@
 package pauta.teste.sicredi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -10,11 +11,17 @@ import pauta.teste.sicredi.controller.dto.CpfDTO;
 @Service
 public class CpfService {
 
-    private CpfConfig cpfConfig;
-    private RestTemplate restTemplate;
+    private final CpfConfig cpfConfig;
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public CpfService(RestTemplate restTemplate, CpfConfig cpfConfig) {
+        this.restTemplate = restTemplate;
+        this.cpfConfig = cpfConfig;
+    }
 
     public void validarCpf(String cpf) {
-        String url = cpfConfig.getUrl();
+        String url = cpfConfig.getUrl().concat(cpf);
         try {
             CpfDTO cpfDto = restTemplate.getForObject(url, CpfDTO.class);
             checkCpf(cpfDto);

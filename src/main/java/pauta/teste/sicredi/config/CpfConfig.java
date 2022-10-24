@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CpfConfig {
 
-    @Value("https://user-info.herokuapp.com/users/%s")
+    @Value("${cpf.url}")
     private String url;
-
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SessaoDTO {
 
-    @JsonProperty("pauta_id")
+    @JsonProperty("pautaId")
     private Long pautaId;
 
     @JsonProperty("minutagem")
