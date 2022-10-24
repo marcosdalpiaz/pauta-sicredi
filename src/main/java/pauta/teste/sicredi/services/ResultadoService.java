@@ -24,37 +24,27 @@ public class ResultadoService {
 
     private ResultadoDTO calculaResultadoSessao(Pauta pauta) {
 
-        Integer votosSim = retornaVotosPorTipo(pauta.getVotos(), "Sim");
-        Integer votosNao = retornaVotosPorTipo(pauta.getVotos(), "Não");
         String resultadoSessao;
 
-        if (votosSim.equals(votosNao)) {
+        if (pauta.getVotosSim().equals(pauta.getVotosNao())) {
             resultadoSessao = "Sessão Empatada!";
-        } else if(votosSim > votosNao) {
-            resultadoSessao = "Votos SIM venceram!";
+        } else if(pauta.getVotosSim() > pauta.getVotosNao()) {
+            resultadoSessao = "Mais votos SIM!";
         } else {
-            resultadoSessao = "Votos NÃO venceram!";
+            resultadoSessao = "Mais votos NÃO!";
         }
 
         return ResultadoDTO.builder()
                 .pautaId(pauta.getId())
                 .pautaNome(pauta.getPautaNome())
                 .pautaStatus(pauta.getStatus())
-                .votoNao(votosNao)
-                .votoSim(votosSim)
+                .votoNao(pauta.getVotosNao())
+                .votoSim(pauta.getVotosSim())
                 .result(resultadoSessao)
                 .build();
     }
 
-    private Integer retornaVotosPorTipo(Set<Votos> votos, String tipo) {
-
-        List<Votos> votosPorTipo = votos.stream().filter(voto -> tipo.equalsIgnoreCase(voto.getVoto())).collect(Collectors.toList());
-        return votosPorTipo.size();
-    }
-
     public void atualizaResult(ResultadoDTO resultadoDTO) {
-        resultadoDTO.setPautaStatus("Pauta Fechada");
+        resultadoDTO.setPautaStatus("FECHADA");
     }
-
-
 }

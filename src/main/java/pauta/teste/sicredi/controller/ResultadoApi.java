@@ -19,7 +19,7 @@ public class ResultadoApi {
     @Autowired
     public ResultadoApi(ResultadoService resultadoService) { this.resultadoService = resultadoService; }
 
-    @GetMapping(value = "/{resultadoId}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Object> resultadoSessao(@PathVariable Long id) {
         ResultadoDTO result = resultadoService.resultadoSessao(id);
         return new ResponseEntity<>(result, HttpStatus.OK);

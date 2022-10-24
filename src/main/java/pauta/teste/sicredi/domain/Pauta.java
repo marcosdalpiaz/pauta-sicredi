@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
 import pauta.teste.sicredi.controller.dto.SessaoDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -27,9 +27,8 @@ public class Pauta implements Serializable {
     private Long id;
 
     //Uma pauta tem vários votos
-    //@JoinColumn(name = "pauta_id", referencedColumnName = "pauta_id")
-    @OneToMany(mappedBy = "pautaId")
-    private Set<Votos> votos;
+    @OneToMany(mappedBy = "pautaId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Votos> votos;
 
     @JoinColumn(name = "pautaNome")
     private String pautaNome;
@@ -75,5 +74,13 @@ public class Pauta implements Serializable {
 
     public boolean naoEnviadoParaFila() {
         return this.enviadoParaFila;
+    }
+
+    public Integer getVotosSim() {
+        return votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("SIM")).collect(Collectors.toList()).size();
+    }
+
+    public Integer getVotosNao() {
+        return votos.stream().filter(v -> v.getVoto().equalsIgnoreCase("NÃO")).collect(Collectors.toList()).size();
     }
 }

@@ -11,4 +11,7 @@ public interface VotoRepository extends JpaRepository<Votos, Long> {
 
     @Query(value = "SELECT * from votos WHERE pauta_id = ?1 and cpf = ?2", nativeQuery = true)
     Optional<Votos> getVotoByCpf(Long pautaId, String cpf);
+
+//    @Query(value = "UPDATE votos SET pauta_id = ?1 where cpf = ?2", nativeQuery = true)
+//    Votos setPautaByCpf(Long pautaId, String cpf);
 }

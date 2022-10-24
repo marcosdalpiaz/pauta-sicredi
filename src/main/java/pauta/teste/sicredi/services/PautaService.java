@@ -16,7 +16,11 @@ public class PautaService {
     PautaRepository pautaRepository;
 
     public Pauta pautaCadastro(Pauta pauta) {
-        return pautaRepository.save(pauta);
+        String pautaFromDb = pautaRepository.getPautaName(pauta.getPautaNome());
+        if (!pauta.getPautaNome().equals(pautaFromDb)) {
+            return pautaRepository.save(pauta);
+        }
+        throw new RuntimeException("Nome já existente para pauta!");
     }
 
     public Pauta votacao(SessaoDTO sessaoDTO) {

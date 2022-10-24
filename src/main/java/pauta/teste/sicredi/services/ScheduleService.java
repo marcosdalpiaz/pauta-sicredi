@@ -16,7 +16,7 @@ public class ScheduleService {
     private ResultadoService resultadoService;
     private OutboundEventProducer outboundEventProducer;
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 60000)
     public void pautaScheduler() {
         pautaService.getPautasAbertas().stream()
                 .filter(Pauta::isClosed)
